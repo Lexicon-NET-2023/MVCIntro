@@ -1,8 +1,22 @@
-﻿@{
+﻿@model List<string>
+
+@{
     ViewData["Title"] = "Home Page";
+    string x = "Hej";
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <p>@x</p>
+
+   <p>@TempData["Name"]</p>
+   <p>@ViewBag.Name</p>
+   <p>@Model[1]</p>
+
+   @foreach (var item in Model)
+    {
+        <p>@item</p>
+    }
+
 </div>

@@ -6,16 +6,17 @@ namespace MVCIntro.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+       
+        public IActionResult Index(string name = "Nisse")
         {
-            _logger = logger;
-        }
+            TempData["Name"] = name;
+            ViewBag.Name = name;
 
-        public IActionResult Index()
-        {
-            return View();
+
+            // var model = new List<string>() { "Hej", "Då", "Igen", "sfsf"};
+            var model = new Employee { Name = "Kalle", Salary = 10000 };
+
+            return View("Index4", model);
         }
 
         public IActionResult Privacy()
@@ -23,10 +24,15 @@ namespace MVCIntro.Controllers
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult GetValues(string name, int salary)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View("Index2");
+        } 
+        
+        public IActionResult GetValues2(Employee employee)
+        {
+            return View("Index3");
         }
+
     }
 }

@@ -33,6 +33,20 @@ namespace MVCIntro.Controllers
             return View("Index2", await model.ToListAsync());
         }
 
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Search(string searchField)
+        {
+            var model = _context.Employee.Where(e => e.Name.StartsWith(searchField))
+                                         .Select(r => new EmployeeIndexViewModel
+                                         {
+                                             Id = r.Id,
+                                             Name = r.Name,
+                                             Department = r.Department
+                                         });
+
+            return View("Index2", await model.ToListAsync());
+        }
+
         // GET: Employees/Details/5
         [HttpGet]
         public async Task<IActionResult> Details(int? id)

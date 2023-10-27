@@ -1,6 +1,6 @@
 ﻿namespace MVCIntro.Models
 {
-#nullable disable
+//#nullable disable
     public class Employee
     {
         public int Id { get; set; }

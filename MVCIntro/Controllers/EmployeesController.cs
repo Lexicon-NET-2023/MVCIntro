@@ -65,15 +65,22 @@ namespace MVCIntro.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Salary,Department")] Employee employee)
+        public async Task<IActionResult> Create(CreateEmployeeViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
+                var employee = new Employee
+                {
+                    Name = viewModel.Name,
+                    Department = viewModel.Department,
+                    Salary = 5
+                };
+
                 _context.Add(employee);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(employee);
+            return View(viewModel);
         }
 
         // GET: Employees/Edit/5

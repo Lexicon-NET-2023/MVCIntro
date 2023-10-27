@@ -28,15 +28,17 @@ namespace MVCIntro.Controllers
         }
 
         // GET: Employees/Details/5
+        [HttpGet]
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Employee == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
             var employee = await _context.Employee
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (employee == null)
             {
                 return NotFound();
@@ -46,6 +48,7 @@ namespace MVCIntro.Controllers
         }
 
         // GET: Employees/Create
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
@@ -56,7 +59,7 @@ namespace MVCIntro.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Salary")] Employee employee)
+        public async Task<IActionResult> Create([Bind("Id,Name,Salary,Department")] Employee employee)
         {
             if (ModelState.IsValid)
             {
@@ -70,12 +73,13 @@ namespace MVCIntro.Controllers
         // GET: Employees/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Employee == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
             var employee = await _context.Employee.FindAsync(id);
+
             if (employee == null)
             {
                 return NotFound();
@@ -141,10 +145,7 @@ namespace MVCIntro.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Employee == null)
-            {
-                return Problem("Entity set 'MVCIntroContext.Employee'  is null.");
-            }
+            
             var employee = await _context.Employee.FindAsync(id);
             if (employee != null)
             {

@@ -15,5 +15,7 @@ namespace MVCIntro.Data
         }
 
         public DbSet<Employee> Employee => Set<Employee>();
+
+       // public DbSet<Car> Car { get; set; } = default!;
     }
 }

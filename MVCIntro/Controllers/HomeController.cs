@@ -9,7 +9,9 @@ namespace MVCIntro.Controllers
        
         public IActionResult Index(string name = "Nisse")
         {
-            TempData["Name"] = name;
+            TempData["SomethingElse"] = name;
+            TempData["SomethingElse"] = name;
+            ViewData["name"] = name;
             ViewBag.Name = name;
 
 
